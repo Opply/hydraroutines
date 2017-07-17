@@ -73,7 +73,7 @@
                     on => Target),
                 Spells.Trash.Cast(
                     on => Target,
-                    ret => !Target.HasMyDebuff("Thrash")),
+                    ret => !Target.HasMyDebuff("Thrash") && TargetManager.GetEnemiesInRadius(8.0).Count > 2),
                 Spells.BrutalSlash.Cast(
                     on => Target,
                     ret => Talents.BrutalSlash.IsTaken && TargetManager.GetEnemiesInRadius(8.0).Count > 2),
