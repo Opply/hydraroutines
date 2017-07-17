@@ -60,7 +60,7 @@
                         new ActionAlwaysSucceed()),
                     Spells.FerociousBite.Cast(
                         on => Target,
-                        ret => Player.EnergyPercent < 90)));
+                        ret => Player.EnergyPercent >= 90)));
         }
 
         private static Composite AoE()
