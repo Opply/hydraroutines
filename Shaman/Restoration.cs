@@ -56,9 +56,6 @@
         protected override Composite HandleRest()
         {
             return new PrioritySelector(
-                new Decorator( ret => useRainOnSelf,
-                Spells.HealingRain.CastLocationVec(
-                        Player.Position)),
                 HandleRotation()
                 );
         }
