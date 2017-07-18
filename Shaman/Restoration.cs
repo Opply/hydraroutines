@@ -125,6 +125,10 @@
                 Spells.GiftOfTheQueen.CastLocation(
                     on => getTarget(),
                     ret => !Player.IsMoving && CountAlliesUnderHealthPercentage(80) >= 2),
+                Riptide(),
+                Spells.HealingSurge.Cast(
+                    on => LowestAlly,
+                    ret => LowestAlly.Exists() && LowestAlly.HealthPercentage < 30),
                 Spells.ChainHeal.Cast(
                     on => LowestAlly));
         }
@@ -184,12 +188,12 @@
 
         private static WoWPlayer LowestAlly => TargetManager.GetOptimalAlly(
             "LowestAlly",
-            x => x.IsAlive && x.Health < x.MaximumHealth,
+            x => x.IsAlive && !x.IsPet && x.Health < x.MaximumHealth,
             x => x.HealthPercentage);
 
         private static WoWPlayer LowestAllyWithoutRiptide => TargetManager.GetOptimalAlly(
             "LowestAllyWithoutRiptide",
-            x => x.IsAlive && x.Health < x.MaximumHealth && !x.HasMyBuff( "Riptide" ),
+            x => x.IsAlive && !x.IsPet && x.Health < x.MaximumHealth && !x.HasMyBuff( "Riptide" ),
             x => x.HealthPercentage);
 
         private static WoWPlayer DispelTarget => TargetManager.GetOptimalAlly(
@@ -201,7 +205,7 @@
 
         private static WoWPlayer SpiritLinkTarget => TargetManager.GetOptimalAlly(
             "SpiritLinkTarget",
-            x => x.IsAlive && x.HealthPercentage < 25,
+            x => x.IsAlive && !x.IsPet && x.HealthPercentage < 25,
             x => x.HealthPercentage);
 
         private Composite DebugPrintLine(string str)
